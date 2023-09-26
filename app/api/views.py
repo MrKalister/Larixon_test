@@ -1,8 +1,8 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 
-from app.models import Advert
-from app.serializers import AdvertSerializer
+from .models import Advert
+from .serializers import AdvertSerializer
 
 
 class AdvertListView(ListAPIView):

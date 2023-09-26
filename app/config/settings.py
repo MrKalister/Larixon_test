@@ -8,11 +8,12 @@ env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 PROJECT_DIR = Path(__file__).resolve().parent
 BASE_DIR = PROJECT_DIR.parent
-env.read_env(os.path.join(BASE_DIR, '.env'))
+
+env.read_env(os.path.join(BASE_DIR, '..', 'infra', '.env'))
 
 DEBUG = env.bool('DEBUG', False)
 SECRET_KEY = env.str('SECRET_KEY', 'the-best-pass')
-ALLOWED_HOSTS = env.str("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = env.str('ALLOWED_HOSTS').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -27,13 +28,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     # project apps
-    'app',
+    'api',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -65,15 +66,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': env.str('SQL_ENGINE', 'db_engine'),
-        'NAME': env.str('SQL_DATABASE', 'db_name'),
-        'USER': env.str('SQL_USER', 'db_username'),
-        'PASSWORD': env.str('SQL_PASSWORD', 'db_pass'),
+        'NAME': env.str('SQL_DATABASE_NAME', 'db_name'),
+        'USER': env.str('POSTGRES_USER', 'db_username'),
+        'PASSWORD': env.str('POSTGRES_PASSWORD', 'db_pass'),
         'HOST': env.str('SQL_HOST', 'db_host'),
         'PORT': env.str('SQL_PORT', '5000'),
     }
 }
 
-if DEBUG:
+if env.bool('USE_SQLITE', False):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -125,7 +126,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(PROJECT_DIR, "logs", "info.log"),
+            'filename': os.path.join(PROJECT_DIR, 'logs', 'info.log'),
             'formatter': 'file',
             'maxBytes': 1024 * 1024 * 1,  # 1 MB,
             'backupCount': 5,
@@ -170,4 +171,11 @@ REST_FRAMEWORK = {
         'user': '50/hour',
         'anon': '30/hour',
     },
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
 }
+
+# Debug_toolbar settings
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

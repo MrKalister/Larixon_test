@@ -33,13 +33,13 @@ class Advert(models.Model):
     description = models.TextField(verbose_name='Описание')
     city = models.ForeignKey(
         verbose_name='Город',
-        to='app.City',
+        to='api.City',
         on_delete=models.CASCADE,
         related_name='adverts',
     )
     category = models.ForeignKey(
         verbose_name='Категория',
-        to='app.Category',
+        to='api.Category',
         on_delete=models.CASCADE,
         related_name='adverts',
     )

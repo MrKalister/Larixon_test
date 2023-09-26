@@ -1,6 +1,6 @@
 from django.urls import path
 
-from app.views import AdvertDetailView, AdvertListView
+from .views import AdvertDetailView, AdvertListView
 
 urlpatterns = [
     path(

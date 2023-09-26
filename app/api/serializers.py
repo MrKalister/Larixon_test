@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.models import Advert
+from .models import Advert
 
 
 class AdvertSerializer(serializers.ModelSerializer):

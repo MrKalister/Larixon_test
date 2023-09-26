@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 
-from app.models import Category, City, Advert
+from .models import Category, City, Advert
 
 
 @admin.register(Category)
