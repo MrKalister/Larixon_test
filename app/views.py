@@ -1,17 +1,22 @@
-from django.db.models import F
-from rest_framework import mixins
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
 
 from app.models import Advert
 from app.serializers import AdvertSerializer
 
 
-class AdvertView(
-    mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet
-):
+class AdvertListView(ListAPIView):
     """
-    Provides information about ads.
+    Provides information about Adverts.
+    """
+
+    queryset = Advert.objects.select_related('city', 'category')
+    serializer_class = AdvertSerializer
+
+
+class AdvertDetailView(RetrieveAPIView):
+    """
+    Provides information about Advert.
     """
 
     queryset = Advert.objects.select_related('city', 'category')
@@ -25,5 +30,5 @@ class AdvertView(
         return Response(serializer.data)
 
     def up_views(self, instance: Advert) -> None:
-        instance.views = F('views') + 1
+        instance.views = instance.views + 1
         instance.save(update_fields=('views',))

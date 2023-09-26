@@ -1,16 +1,16 @@
 from django.urls import path
 
-from .views import AdvertView
+from app.views import AdvertDetailView, AdvertListView
 
 urlpatterns = [
     path(
         'advert-list/',
-        AdvertView.as_view({'get': 'list'}),
+        AdvertListView.as_view(),
         name='advert-list',
     ),
     path(
         'advert/<int:pk>/',
-        AdvertView.as_view({'get': 'retrieve'}),
+        AdvertDetailView.as_view(),
         name='advert-detail',
     ),
 ]
