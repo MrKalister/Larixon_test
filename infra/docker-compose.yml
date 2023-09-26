@@ -11,7 +11,7 @@ services:
       - ./.env
 
   backend:
-    image: kalister/larixon_test:latest
+    image: kalister/larixon_test:v.1.0
     #    build:
     #      context: ../app/
     container_name: backend

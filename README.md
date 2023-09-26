@@ -23,13 +23,13 @@ detail view одного объявления со всеми полями, пр
 Вы должны были установить и запустить Docker. Более подробная информация
 здесь - [Instructions](https://docs.docker.com/).
 
-#### 1. Склоинруйте репозиторий
+#### 1. Склонируйте репозиторий.
 
 ```bash
 git clone git@github.com:MrKalister/ad_board_test.git
 ```
 
-#### 2. Создайте и активируйте виртуальную среду при необходимости.
+#### 2. Создайте и активируйте виртуальную среду(при необходимости).
 
 Команда для установки виртуальной среды на Mac или Linux:
 
@@ -51,10 +51,10 @@ python -m venv venv
 cd infra
 ```
 
-#### 4. Скопируйте файл ".env.example" и заполните своими данными.
+#### 4. Скопируйте файл ".env-example" и заполните своими данными.
 
 ```bash
-cp .env.example .env
+cp .env-example .env
 ```
 
 #### 5. Запустите docker-compose.
@@ -72,6 +72,13 @@ docker-compose up -d
 
 Это поведение можно изменить в docker-compose, убрав ненужные команды.
 
-Подробная инфомация об использовании API:
+#### 6. Enjoy.
+
+open [URL](http://127.0.0.1/recipes) and enjoy.
+Документация API:
 [Redoc](http://127.0.0.1:8000/redoc/)
 [Swagger](http://127.0.0.1:8000/swagger/)
+
+### Author
+
+**Novikov Maxim** - [github](http://github.com/MrKalister)
