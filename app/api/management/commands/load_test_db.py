@@ -9,7 +9,7 @@ class Command(BaseCommand):
     help = 'Load initial data from a JSON file.'
 
     def handle(self, *args, **kwargs):
-        # get path to 'test_data.json'
+        # Get path to 'test_data.json'
         json_file_path = os.path.join(
             settings.BASE_DIR, 'data', 'test_data.json'
         )
@@ -21,5 +21,5 @@ class Command(BaseCommand):
             )
             return
 
-        # Вызываем команду для загрузки данных из JSON файла
+        # Call the command to load data from a JSON file
         call_command('loaddata', json_file_path)

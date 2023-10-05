@@ -1,5 +1,5 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework.response import Response
+from django.db.models import F
 
 from .models import Advert
 from .serializers import AdvertSerializer
@@ -22,13 +22,13 @@ class AdvertDetailView(RetrieveAPIView):
     queryset = Advert.objects.select_related('city', 'category')
     serializer_class = AdvertSerializer
 
-    def retrieve(self, request, *args, **kwargs) -> Response:
-        # Можно через super(), но так бы пришлось дважды вызывать get_object
-        instance = self.get_object()
+    def get_object(self):
+        instance = super().get_object()
         self.up_views(instance)
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+        instance.refresh_from_db()
+        return instance
 
     def up_views(self, instance: Advert) -> None:
-        instance.views = instance.views + 1
-        instance.save(update_fields=('views',))
+        # Это способ может предотвратить проблемы,
+        # возникающие при параллельных изменениях.
+        Advert.objects.filter(pk=instance.pk).update(views=F('views') + 1)
