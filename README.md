@@ -72,13 +72,14 @@ docker-compose up -d
 
 Это поведение можно изменить в docker-compose, убрав ненужные команды.
 
-#### 6. Enjoy.
+#### 6. Наслаждайтесь.
 
-open [URL](http://127.0.0.1/recipes) and enjoy.
+Откройте [URL](http://127.0.0.1/recipes)
+
 Документация API:
 [Redoc](http://127.0.0.1:8000/redoc/)
 [Swagger](http://127.0.0.1:8000/swagger/)
 
-### Author
+### Автор
 
 **Novikov Maxim** - [github](http://github.com/MrKalister)
